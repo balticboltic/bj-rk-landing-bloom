@@ -27,11 +27,11 @@ const StickyBottomBar = () => {
           initial={{ y: "100%" }}
           animate={{ y: 0 }}
           exit={{ y: "100%" }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
+          transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
           className="fixed bottom-0 left-0 right-0 z-50"
         >
           <div
-            className="backdrop-blur-xl bg-cream/80 border-t border-foreground/[0.06]"
+            className="backdrop-blur-2xl bg-cream/70 border-t border-copper/10"
             style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
           >
             <div className="max-w-[480px] mx-auto flex items-center justify-around h-[68px] px-2">
@@ -39,10 +39,10 @@ const StickyBottomBar = () => {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="flex flex-col items-center gap-1 text-forest hover:text-copper transition-colors px-3 py-1"
+                  className="flex flex-col items-center gap-1.5 text-forest hover:text-copper transition-colors duration-200 px-4 py-1 group"
                 >
-                  <item.icon className="w-5 h-5" />
-                  <span className="text-[10px] font-medium">{item.label}</span>
+                  <item.icon className="w-[18px] h-[18px] group-hover:scale-110 transition-transform duration-200" />
+                  <span className="text-[9px] font-bold tracking-wider uppercase">{item.label}</span>
                 </a>
               ))}
             </div>

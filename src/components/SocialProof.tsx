@@ -1,5 +1,6 @@
-import AnimatedSection from "./AnimatedSection";
+import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
+import AnimatedSection from "./AnimatedSection";
 
 const reviews = [
   {
@@ -21,35 +22,59 @@ const reviews = [
 
 const SocialProof = () => {
   return (
-    <AnimatedSection className="py-10 px-5 bg-cream">
+    <AnimatedSection className="py-14 px-6 bg-cream relative overflow-hidden">
+      {/* Decorative copper accent */}
+      <div className="absolute top-0 left-6 w-px h-20 bg-gradient-to-b from-copper/40 to-transparent" />
+
       <div className="max-w-[480px] mx-auto">
-        <h2 className="font-display text-2xl font-medium text-foreground mb-6">
-          Что говорят пациенты
+        <p className="text-label text-copper mb-3">Отзывы</p>
+        <h2 className="font-display text-[30px] text-foreground mb-10 leading-[1.1]">
+          Что говорят<br />наши пациенты
         </h2>
 
-        <div className="flex gap-4 overflow-x-auto pb-4 -mx-5 px-5 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div className="space-y-4">
           {reviews.map((review, i) => (
-            <div
+            <motion.div
               key={i}
-              className="min-w-[300px] snap-start bg-sand-light border border-foreground/[0.06] rounded-xl p-5 flex flex-col justify-between"
+              initial={{ opacity: 0, x: -15 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.12 }}
+              className="relative bg-sand-light/80 backdrop-blur-sm rounded-3xl p-6 border border-foreground/[0.04] group hover:border-copper/20 transition-all duration-300"
             >
-              <p className="font-display italic text-[15px] leading-relaxed text-foreground/90 mb-4">
-                «{review.quote}»
+              {/* Copper quote mark */}
+              <span className="absolute -top-2 left-6 font-display text-[48px] text-copper/20 leading-none select-none">«</span>
+
+              <p className="font-display italic text-[15px] leading-[1.65] text-foreground/85 mb-5 pt-3">
+                {review.quote}
               </p>
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-foreground">{review.name}</span>
-                <span className="flex items-center gap-1 text-[11px] text-muted-foreground bg-sand rounded-pill px-2.5 py-1">
-                  <MapPin className="w-3 h-3" />
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-copper/20 to-copper/5 flex items-center justify-center">
+                    <span className="text-[11px] font-semibold text-copper">{review.name[0]}</span>
+                  </div>
+                  <span className="text-[13px] font-medium text-foreground">{review.name}</span>
+                </div>
+                <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground bg-sand rounded-pill px-3 py-1.5">
+                  <MapPin className="w-2.5 h-2.5" />
                   {review.source}
                 </span>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        <a href="#" className="inline-flex items-center gap-1 text-sm text-copper font-medium mt-2 hover:text-copper-light transition-colors">
-          Все 200+ отзывов →
-        </a>
+        <motion.a
+          href="#"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+          className="inline-flex items-center gap-2 text-[13px] text-copper font-semibold mt-6 group hover:text-copper-light transition-colors"
+        >
+          <span>Все 200+ отзывов</span>
+          <span className="inline-block group-hover:translate-x-1 transition-transform duration-200">→</span>
+        </motion.a>
       </div>
     </AnimatedSection>
   );
