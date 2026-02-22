@@ -27,32 +27,36 @@ const plans = [
 
 const PricingCards = () => {
   return (
-    <AnimatedSection className="py-10 px-5 bg-cream">
+    <AnimatedSection className="py-14 px-6 bg-cream relative overflow-hidden">
+      {/* Decorative element */}
+      <div className="absolute -bottom-20 -right-20 w-48 h-48 rounded-full bg-copper/[0.04] blur-3xl" />
+
       <div className="max-w-[480px] mx-auto">
-        <h2 className="font-display text-[26px] font-medium text-foreground mb-3">
+        <p className="text-label text-copper mb-3">Цены</p>
+        <h2 className="font-display text-[30px] text-foreground mb-4 leading-[1.1]">
           Стоимость процедуры
         </h2>
 
-        <p className="text-[15px] text-muted-foreground leading-relaxed mb-8">
-          Комплексная коррекция нескольких зон даёт более гармоничный и естественный результат — мышцы работают в&nbsp;связке, и&nbsp;расслабление одной зоны усиливает эффект в&nbsp;соседних.
+        <p className="text-[14px] text-muted-foreground leading-relaxed mb-10 max-w-[340px]">
+          Комплексная коррекция нескольких зон даёт более гармоничный результат — мышцы работают в&nbsp;связке.
         </p>
 
         <div className="space-y-4">
           {plans.map((plan, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.15 }}
-              className={`relative rounded-xl p-5 border transition-all duration-200 hover:-translate-y-0.5 ${
+              transition={{ duration: 0.5, delay: i * 0.12, ease: [0.25, 0.1, 0.25, 1] }}
+              className={`relative rounded-3xl p-6 transition-all duration-300 group ${
                 plan.featured
-                  ? "border-copper/40 bg-sand-light border-[1.5px]"
-                  : "border-foreground/[0.06] bg-sand-light"
+                  ? "bg-forest-deep grain overflow-hidden"
+                  : "bg-sand-light border border-foreground/[0.04] hover:border-copper/15"
               }`}
             >
               {plan.badge && (
-                <span className="absolute -top-3 left-5 bg-copper text-accent-foreground text-[11px] font-semibold px-3 py-1 rounded-pill flex items-center gap-1">
+                <span className="absolute -top-3 left-6 bg-gradient-to-r from-copper to-copper-light text-accent-foreground text-[10px] font-bold px-4 py-1.5 rounded-pill flex items-center gap-1.5 shadow-copper-glow">
                   <Sparkles className="w-3 h-3" />
                   {plan.badge}
                 </span>
@@ -60,26 +64,30 @@ const PricingCards = () => {
 
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="font-display text-lg font-medium text-foreground">
+                  <h3 className={`font-display text-xl ${plan.featured ? "text-primary-foreground" : "text-foreground"}`}>
                     {plan.name}
                   </h3>
                   {plan.subtitle && (
-                    <p className="text-[13px] text-muted-foreground mt-0.5">{plan.subtitle}</p>
+                    <p className={`text-[12px] mt-1 ${plan.featured ? "text-primary-foreground/50" : "text-muted-foreground"}`}>
+                      {plan.subtitle}
+                    </p>
                   )}
-                  <span className="text-label text-muted-foreground mt-2 block">{plan.zones}</span>
+                  <span className={`text-label mt-3 block ${plan.featured ? "text-copper-light" : "text-muted-foreground"}`}>
+                    {plan.zones}
+                  </span>
                 </div>
                 <div className="text-right">
-                  <span className={`text-2xl font-display font-medium ${plan.featured ? "text-copper" : "text-foreground"}`}>
+                  <span className={`text-[28px] font-display ${plan.featured ? "text-copper-gradient" : "text-foreground"}`}>
                     {plan.price}
                   </span>
-                  <span className="text-sm text-muted-foreground"> ₽</span>
+                  <span className={`text-[13px] ml-1 ${plan.featured ? "text-primary-foreground/40" : "text-muted-foreground"}`}>₽</span>
                 </div>
               </div>
 
               <button
-                className={`w-full mt-4 py-3 rounded-lg text-[14px] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ${
+                className={`w-full mt-5 py-3.5 rounded-2xl text-[13px] font-bold tracking-wide transition-all duration-300 active:scale-[0.98] ${
                   plan.featured
-                    ? "bg-copper text-accent-foreground shadow-copper-glow hover:bg-copper-light"
+                    ? "bg-gradient-to-r from-copper to-copper-light text-accent-foreground shadow-copper-glow hover:shadow-[0_12px_40px_-4px_hsl(var(--copper)/0.6)]"
                     : "bg-forest text-primary-foreground hover:bg-forest-deep"
                 }`}
               >
@@ -87,8 +95,8 @@ const PricingCards = () => {
               </button>
 
               {plan.featured && (
-                <div className="mt-3 flex justify-center">
-                  <span className="text-[12px] text-muted-foreground bg-sand rounded-pill px-3 py-1.5 font-medium">
+                <div className="mt-4 flex justify-center">
+                  <span className="text-[11px] text-primary-foreground/40 bg-primary-foreground/[0.06] backdrop-blur-sm rounded-pill px-4 py-2 font-medium">
                     Яндекс Сплит — от 4 225 ₽/мес
                   </span>
                 </div>

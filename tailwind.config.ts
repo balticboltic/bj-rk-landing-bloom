@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Playfair Display"', 'serif'],
-        sans: ['Inter', 'sans-serif'],
+        display: ['"DM Serif Display"', 'serif'],
+        sans: ['"Space Grotesk"', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -58,6 +58,7 @@ export default {
         copper: {
           DEFAULT: "hsl(var(--copper))",
           light: "hsl(var(--copper-light))",
+          glow: "hsl(var(--copper-glow))",
         },
         sand: {
           DEFAULT: "hsl(var(--sand))",
@@ -81,6 +82,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
         xl: "16px",
         "2xl": "20px",
+        "3xl": "28px",
         pill: "100px",
       },
       keyframes: {
@@ -93,23 +95,35 @@ export default {
           to: { height: "0" },
         },
         "fade-up": {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "0%": { opacity: "0", transform: "translateY(24px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
         "slide-up-bar": {
           "0%": { transform: "translateY(100%)" },
           "100%": { transform: "translateY(0)" },
         },
+        "reveal-up": {
+          "0%": { clipPath: "inset(100% 0 0 0)" },
+          "100%": { clipPath: "inset(0 0 0 0)" },
+        },
+        "draw-line": {
+          "0%": { transform: "scaleX(0)" },
+          "100%": { transform: "scaleX(1)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.3s ease-out",
         "accordion-up": "accordion-up 0.3s ease-out",
-        "fade-up": "fade-up 0.5s ease-out forwards",
+        "fade-up": "fade-up 0.6s ease-out forwards",
         "slide-up-bar": "slide-up-bar 0.3s ease-out forwards",
+        "reveal-up": "reveal-up 0.8s ease-out forwards",
+        "draw-line": "draw-line 0.6s ease-out forwards",
       },
       boxShadow: {
-        'doctor': '0 8px 30px -8px hsl(var(--forest) / 0.15)',
-        'copper-glow': '0 4px 20px -4px hsl(var(--copper) / 0.4)',
+        'doctor': '0 12px 40px -8px hsl(var(--forest) / 0.2)',
+        'copper-glow': '0 8px 32px -4px hsl(var(--copper) / 0.5)',
+        'editorial': '0 2px 0 0 hsl(var(--copper) / 0.3)',
+        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.08)',
       },
     },
   },

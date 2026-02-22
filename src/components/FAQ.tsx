@@ -1,6 +1,5 @@
 import AnimatedSection from "./AnimatedSection";
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const faqs = [
@@ -30,28 +29,35 @@ const FAQ = () => {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <AnimatedSection className="py-10 px-5 bg-sand-light">
+    <AnimatedSection className="py-14 px-6 bg-sand-light">
       <div className="max-w-[480px] mx-auto">
-        <h2 className="font-display text-[26px] font-medium text-foreground mb-6">
+        <p className="text-label text-copper mb-3">FAQ</p>
+        <h2 className="font-display text-[30px] text-foreground mb-8 leading-[1.1]">
           Частые вопросы
         </h2>
 
         <div className="space-y-2">
           {faqs.map((faq, i) => (
-            <div
+            <motion.div
               key={i}
-              className="border border-foreground/[0.06] rounded-xl bg-cream overflow-hidden"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06 }}
+              className="rounded-2xl bg-cream overflow-hidden border border-foreground/[0.04] hover:border-copper/10 transition-colors duration-300"
             >
               <button
                 onClick={() => setOpen(open === i ? null : i)}
-                className="w-full flex items-center justify-between px-5 py-4 text-left"
+                className="w-full flex items-center justify-between px-5 py-4.5 text-left group"
               >
-                <span className="text-[15px] font-medium text-foreground pr-4">{faq.q}</span>
-                <ChevronDown
-                  className={`w-4 h-4 text-muted-foreground shrink-0 transition-transform duration-300 ${
-                    open === i ? "rotate-180" : ""
+                <span className="text-[14px] font-semibold text-foreground pr-4 group-hover:text-copper transition-colors duration-200">{faq.q}</span>
+                <span
+                  className={`w-6 h-6 rounded-full border border-foreground/10 flex items-center justify-center shrink-0 transition-all duration-300 text-[12px] ${
+                    open === i ? "bg-copper border-copper text-accent-foreground rotate-45" : "text-muted-foreground"
                   }`}
-                />
+                >
+                  +
+                </span>
               </button>
               <AnimatePresence>
                 {open === i && (
@@ -59,16 +65,19 @@ const FAQ = () => {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                     className="overflow-hidden"
                   >
-                    <p className="px-5 pb-4 text-[14px] text-muted-foreground leading-relaxed">
-                      {faq.a}
-                    </p>
+                    <div className="px-5 pb-5">
+                      <div className="w-8 h-px bg-copper/30 mb-3" />
+                      <p className="text-[13px] text-muted-foreground leading-[1.7]">
+                        {faq.a}
+                      </p>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
